@@ -1,15 +1,14 @@
 FROM n8nio/n8n:latest
 
-# Create a safe directory for custom scripts
+# Use root to copy scripts safely
 USER root
 WORKDIR /usr/local/bin
 
-# Copy and set permissions
 COPY docker-entrypoint.sh ./docker-entrypoint.sh
 RUN chmod +x ./docker-entrypoint.sh
 
-# Switch back to default n8n user
+# Switch to default n8n user
 USER node
 
-# Set entrypoint
-ENTRYPOINT ["tini", "--", "/usr/local/bin/docker-entrypoint.sh"]
+# Run n8n with tunnel so public URL works
+ENTRYPOINT ["tini", "--", "/usr/local/bin/docker-entrypoint.sh", "--tunnel"]

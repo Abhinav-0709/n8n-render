@@ -1,6 +1,5 @@
 #!/bin/sh
-# Exit immediately if a command exits with a non-zero status
 set -e
 
-# Start n8n
-exec n8n start
+# Start n8n with any extra arguments passed (like --tunnel)
+exec n8n start "$@"
